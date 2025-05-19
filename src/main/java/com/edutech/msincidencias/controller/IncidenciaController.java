@@ -12,12 +12,14 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import com.edutech.msincidencias.model.Incidencia;
 import com.edutech.msincidencias.service.IncidenciaService;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+
 
 
 @RestController
 @RequestMapping("api/v1/incidencias")
 public class IncidenciaController {
-    
     @Autowired
     private IncidenciaService incidenciaService;
 
@@ -25,11 +27,20 @@ public class IncidenciaController {
     public ResponseEntity<List<Incidencia>> getAll() {
         List<Incidencia> incidencias = incidenciaService.findAll();
         if(!incidencias.isEmpty()) {
-            return new ResponseEntity<>(HttpStatus.OK);
+            return new ResponseEntity<>(incidencias,HttpStatus.OK);
         }else{
             return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+        }   
+    }
+    
+    @PostMapping()
+    public ResponseEntity<Incidencia> postIncidencia(@RequestBody Incidencia incidencia) {
+        Incidencia buscar = incidenciaService.findById(incidencia.getIdIncidencia());
+        if(buscar == null) {
+            return new ResponseEntity<>(incidenciaService.save(incidencia), HttpStatus.CREATED);
+        }else{
+            return new ResponseEntity<>(HttpStatus.NOT_ACCEPTABLE);
         }
-        
     }
     
 }

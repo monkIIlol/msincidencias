@@ -18,4 +18,12 @@ public class IncidenciaService {
         return incidenciaRepository.findAll();
     }
 
+    public Incidencia save(Incidencia incidencia) {
+        return incidenciaRepository.save(incidencia);
+    }
+
+    public Incidencia findById(int idIncidencia) {
+        return incidenciaRepository.findById(idIncidencia);
+    }
+
 }
