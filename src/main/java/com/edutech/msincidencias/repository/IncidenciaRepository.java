@@ -17,4 +17,5 @@ public interface IncidenciaRepository extends JpaRepository<Incidencia, Integer>
 
     Incidencia findById(int idIncidencia);
 
+    void deleteById(int idIncidencia);
 }

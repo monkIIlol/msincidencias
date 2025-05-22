@@ -26,4 +26,8 @@ public class IncidenciaService {
         return incidenciaRepository.findById(idIncidencia);
     }
 
+    public void deleteById(int idIncidencia) {
+        incidenciaRepository.deleteById(idIncidencia);
+    }
+
 }
