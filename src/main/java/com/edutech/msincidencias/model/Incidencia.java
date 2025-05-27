@@ -27,6 +27,12 @@ public class Incidencia {
     @Column(unique = true)
     private int idIncidencia;
 
+    @Column(nullable = false)
+    private int idUsuarioReporte;
+
+    @Column(nullable = false)
+    private int idOperadorAsignado;
+
     @Column(length = 50, nullable = false)
     private String titulo;
 
