@@ -30,4 +30,22 @@ public class IncidenciaService {
         incidenciaRepository.deleteById(idIncidencia);
     }
 
+    public boolean update(int idIncidencia, Incidencia incidencia) {
+        Incidencia inc = incidenciaRepository.findById(idIncidencia);
+        if(inc != null) {
+            inc.setIdUsuarioReporte(incidencia.getIdUsuarioReporte());
+            inc.setIdOperadorAsignado(incidencia.getIdOperadorAsignado());
+            inc.setTitulo(incidencia.getTitulo());
+            inc.setDescripcion(incidencia.getDescripcion());
+            inc.setFechaIncidencia(incidencia.getFechaIncidencia());
+            inc.setEstado(incidencia.getEstado());
+            inc.setPrioridad(incidencia.getPrioridad());
+
+            incidenciaRepository.save(inc);
+            return true;
+        }else{
+            return false;
+        }
+    }
+
 }

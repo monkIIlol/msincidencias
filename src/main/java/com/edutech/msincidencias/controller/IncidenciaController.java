@@ -59,15 +59,7 @@ public class IncidenciaController {
 
     @PutMapping("/{idIncidencia}")
     public ResponseEntity<Incidencia> updateIncidencia(@PathVariable int idIncidencia, @RequestBody Incidencia incidencia) {
-        Incidencia buscar = incidenciaService.findById(idIncidencia);
-        if(buscar != null) {
-            buscar.setTitulo(incidencia.getTitulo());
-            buscar.setDescripcion(incidencia.getDescripcion());
-            buscar.setFechaIncidencia(incidencia.getFechaIncidencia());
-            buscar.setEstado(incidencia.getEstado());
-            buscar.setPrioridad(incidencia.getPrioridad());
-
-            incidenciaService.save(buscar);
+        if(incidenciaService.update(idIncidencia, incidencia)) {
             return new ResponseEntity<>(incidencia, HttpStatus.OK);
 
         }else {
@@ -87,4 +79,3 @@ public class IncidenciaController {
         }
     }
 }
-
