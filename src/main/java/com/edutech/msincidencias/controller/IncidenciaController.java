@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.HttpStatusCode;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -46,6 +47,17 @@ public class IncidenciaController {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
     }
+
+    @GetMapping("/{idIncidencia}/estado")
+    public ResponseEntity<?> estado(@PathVariable int idIncidencia) {
+        Incidencia buscar = incidenciaService.findById(idIncidencia);
+        if(buscar != null) {
+            return new ResponseEntity<>(buscar.getEstado(), HttpStatus.OK);
+        }else{
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+    }
+    
 
     @PostMapping()
     public ResponseEntity<Incidencia> postIncidencia(@RequestBody Incidencia incidencia) {
