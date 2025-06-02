@@ -48,7 +48,7 @@ public class IncidenciaController {
         }
     }
 
-    @GetMapping("/{idIncidencia}/estado")
+    @GetMapping("/estado/{idIncidencia}")
     public ResponseEntity<?> estado(@PathVariable int idIncidencia) {
         Incidencia buscar = incidenciaService.findById(idIncidencia);
         if(buscar != null) {
