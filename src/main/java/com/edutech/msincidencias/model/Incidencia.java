@@ -24,8 +24,7 @@ import lombok.NoArgsConstructor;
 public class Incidencia {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(unique = true)
-    private int idIncidencia;
+    private Long idIncidencia;
 
     @Column(nullable = false)
     private int idUsuarioReporte;

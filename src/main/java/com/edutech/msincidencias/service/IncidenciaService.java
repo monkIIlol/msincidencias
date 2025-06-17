@@ -22,15 +22,15 @@ public class IncidenciaService {
         return incidenciaRepository.save(incidencia);
     }
 
-    public Incidencia findById(int idIncidencia) {
+    public Incidencia findById(Long idIncidencia) {
         return incidenciaRepository.findById(idIncidencia);
     }
 
-    public void deleteById(int idIncidencia) {
+    public void deleteById(Long idIncidencia) {
         incidenciaRepository.deleteById(idIncidencia);
     }
 
-    public boolean update(int idIncidencia, Incidencia incidencia) {
+    public boolean update(Long idIncidencia, Incidencia incidencia) {
         Incidencia inc = incidenciaRepository.findById(idIncidencia);
         if(inc != null) {
             inc.setIdUsuarioReporte(incidencia.getIdUsuarioReporte());

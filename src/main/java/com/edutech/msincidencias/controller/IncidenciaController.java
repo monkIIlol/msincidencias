@@ -39,7 +39,7 @@ public class IncidenciaController {
     }
 
     @GetMapping("/{idIncidencia}")
-    public ResponseEntity<Incidencia> readIncidencia(@PathVariable int idIncidencia) {
+    public ResponseEntity<Incidencia> readIncidencia(@PathVariable Long idIncidencia) {
         Incidencia buscar = incidenciaService.findById(idIncidencia);
         if(buscar != null) {
             return new ResponseEntity<>(buscar, HttpStatus.OK);
@@ -49,7 +49,7 @@ public class IncidenciaController {
     }
 
     @GetMapping("/estado/{idIncidencia}")
-    public ResponseEntity<?> estado(@PathVariable int idIncidencia) {
+    public ResponseEntity<?> estado(@PathVariable Long idIncidencia) {
         Incidencia buscar = incidenciaService.findById(idIncidencia);
         if(buscar != null) {
             return new ResponseEntity<>(buscar.getEstado(), HttpStatus.OK);
@@ -70,7 +70,7 @@ public class IncidenciaController {
     }
 
     @PutMapping("/{idIncidencia}")
-    public ResponseEntity<Incidencia> updateIncidencia(@PathVariable int idIncidencia, @RequestBody Incidencia incidencia) {
+    public ResponseEntity<Incidencia> updateIncidencia(@PathVariable Long idIncidencia, @RequestBody Incidencia incidencia) {
         if(incidenciaService.update(idIncidencia, incidencia)) {
             return new ResponseEntity<>(incidencia, HttpStatus.OK);
 
@@ -80,7 +80,7 @@ public class IncidenciaController {
     }
     
     @DeleteMapping("/{idIncidencia}")
-    public ResponseEntity<?> deleteIncidencia(@PathVariable int idIncidencia) {
+    public ResponseEntity<?> deleteIncidencia(@PathVariable Long idIncidencia) {
         Incidencia buscar = incidenciaService.findById(idIncidencia);
         if(buscar != null) {
             incidenciaService.deleteById(idIncidencia);
