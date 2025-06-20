@@ -26,8 +26,10 @@ public class IncidenciaService {
         return incidenciaRepository.findById(idIncidencia);
     }
 
-    public void deleteById(Incidencia incidencia) {
-        incidencia.setActivo(false);
+    public Incidencia deleteById(Long idIncidencia) {
+        Incidencia resultado = incidenciaRepository.findById(idIncidencia);
+        resultado.setActivo(false);
+        return incidenciaRepository.save(resultado);
     }
 
     public boolean update(Long idIncidencia, Incidencia incidencia) {

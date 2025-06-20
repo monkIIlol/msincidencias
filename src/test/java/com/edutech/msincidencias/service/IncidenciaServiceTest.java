@@ -81,10 +81,11 @@ public class IncidenciaServiceTest {
 
     @Test
     void testEliminarIncidencia() {
-        Incidencia incidencia = new Incidencia(null, 19, 5, "", "",  fechaIncidencia, "", "", true);
-        //*doNothing().when(incidenciaRepository).deleteById(incidencia.getIdIncidencia());*//
-        
-        resultado
+        Incidencia incidencia = new Incidencia(null, 19, 5, "", "",  fechaIncidencia, "", "", true);        
+        when(incidenciaRepository.findById(incidencia.getIdIncidencia())).thenReturn(incidencia);
+
+        Incidencia resultado = incidenciaService.deleteById(incidencia.getIdIncidencia());
+        assertThat(resultado.isActivo()).isFalse();
     }
 
     @Test

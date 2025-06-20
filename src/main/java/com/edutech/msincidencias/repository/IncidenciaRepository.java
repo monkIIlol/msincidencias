@@ -16,6 +16,4 @@ public interface IncidenciaRepository extends JpaRepository<Incidencia, Integer>
     Incidencia save(Incidencia incidencia);
 
     Incidencia findById(Long idIncidencia);
-
-    void deleteById(Long idIncidencia);
 }
