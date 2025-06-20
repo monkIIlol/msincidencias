@@ -47,4 +47,7 @@ public class Incidencia {
     @Column(length = 50)
     private String prioridad;
 
+    @Column(nullable = true)
+    private boolean activo;
+
 }
