@@ -117,6 +117,5 @@ class IncidenciaControllerTest {
 
         mockMvc.perform(delete("/api/v1/incidencias/1"))
         .andExpect(status().isNoContent());
-
     }
 }
