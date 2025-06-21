@@ -1,5 +1,6 @@
 package com.edutech.msincidencias.controller;
 
+import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.isA;
 
 import java.time.LocalDate;
@@ -23,8 +24,14 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 
 import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.put;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
+
+import org.springframework.http.MediaType;
+
 
 
 @WebMvcTest(IncidenciaController.class)
@@ -71,17 +78,31 @@ class IncidenciaControllerTest {
 
         mockMvc.perform(get("/api/v1/incidencias/estado/1"))
             .andExpect(status().isOk())
-            .andExpect(jsonPath("$.estado").value("ABIERTO"));
+            .andExpect(content().string("ABIERTO"));
     }
 
     @Test
     public void testPostIncidencia() throws Exception {
-
+        when(incidenciaService.save(any(Incidencia.class))).thenReturn(incidencia);
+        mockMvc.perform(post("/api/v1/incidencias")
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(objectMapper.writeValueAsString(incidencia)))
+            .andExpect(status().isCreated())
+            .andExpect(jsonPath("$.idIncidencia").value(1L))
+            .andExpect(jsonPath("$.idUsuarioReporte").value(10))
+            .andExpect(jsonPath("$.idOperadorAsignado").value(5));
     }
 
     @Test
     public void testUpdateIncidencia() throws Exception {
-
+        when(incidenciaService.save(any(Incidencia.class))).thenReturn(incidencia);
+        mockMvc.perform(put("/api/v1/incidencias/1")
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(objectMapper.writeValueAsString(incidencia)))
+            .andExpect(status().isOk())
+            .andExpect(jsonPath("$.idIncidencia").value(1L))
+            .andExpect(jsonPath("$.idUsuarioReporte").value(10))
+            .andExpect(jsonPath("$.idOperadorAsignado").value(5));
     }
 
     @Test
