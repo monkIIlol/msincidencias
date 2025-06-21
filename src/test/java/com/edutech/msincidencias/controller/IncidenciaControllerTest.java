@@ -1,6 +1,7 @@
 package com.edutech.msincidencias.controller;
 
 import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.ArgumentMatchers.isA;
 
 import java.time.LocalDate;
@@ -22,7 +23,11 @@ import com.edutech.msincidencias.repository.IncidenciaRepository;
 import com.edutech.msincidencias.service.IncidenciaService;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
+import static org.mockito.Mockito.doNothing;
+import static org.mockito.Mockito.times;
+import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.delete;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.put;
@@ -95,7 +100,7 @@ class IncidenciaControllerTest {
 
     @Test
     public void testUpdateIncidencia() throws Exception {
-        when(incidenciaService.save(any(Incidencia.class))).thenReturn(incidencia);
+        when(incidenciaService.update(eq(1L), any(Incidencia.class))).thenReturn(true);        
         mockMvc.perform(put("/api/v1/incidencias/1")
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(objectMapper.writeValueAsString(incidencia)))
@@ -107,6 +112,11 @@ class IncidenciaControllerTest {
 
     @Test
     public void testDeleteIncidencia() throws Exception {
+        when(incidenciaService.findById(incidencia.getIdIncidencia())).thenReturn(incidencia);
+        when(incidenciaService.deleteById(incidencia.getIdIncidencia())).thenReturn(incidencia);
+
+        mockMvc.perform(delete("/api/v1/incidencias/1"))
+        .andExpect(status().isNoContent());
 
     }
 }
