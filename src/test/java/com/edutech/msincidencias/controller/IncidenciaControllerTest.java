@@ -21,6 +21,12 @@ import com.edutech.msincidencias.repository.IncidenciaRepository;
 import com.edutech.msincidencias.service.IncidenciaService;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
+import static org.mockito.Mockito.when;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
+
+
 @WebMvcTest(IncidenciaController.class)
 class IncidenciaControllerTest {
     LocalDate fechaIncidencia = LocalDate.now();
@@ -45,19 +51,27 @@ class IncidenciaControllerTest {
     public void testGetAllIncidencias() throws Exception {
         when(incidenciaService.findAll()).thenReturn(List.of(incidencia));
 
-        mockMvc.perform(get("api/v1/incidencias"))
+        mockMvc.perform(get("/api/v1/incidencias"))
             .andExpect(status().isOk())
             .andExpect(jsonPath("[0].idIncidencia").value(1L));
     }
 
     @Test
     public void testReadIncidencia() throws Exception {
+        when(incidenciaService.findById(incidencia.getIdIncidencia())).thenReturn(incidencia);
 
+        mockMvc.perform(get("/api/v1/incidencias/1"))
+            .andExpect(status().isOk())
+            .andExpect(jsonPath("$.idIncidencia").value(1L));
     }
 
     @Test
     public void testEstado() throws Exception {
+        when(incidenciaService.findById(incidencia.getIdIncidencia())).thenReturn(incidencia);
 
+        mockMvc.perform(get("/api/v1/incidencias/estado/1"))
+            .andExpect(status().isOk())
+            .andExpect(jsonPath("$.estado").value("ABIERTO"));
     }
 
     @Test
