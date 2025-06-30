@@ -8,12 +8,12 @@ import org.springframework.stereotype.Repository;
 import com.edutech.msincidencias.model.Incidencia;
 
 @Repository
-public interface IncidenciaRepository extends JpaRepository<Incidencia, Integer>{
+public interface IncidenciaRepository extends JpaRepository<Incidencia, Long>{
     
     List<Incidencia> findAll();
 
     @SuppressWarnings("unchecked")
     Incidencia save(Incidencia incidencia);
 
-    Incidencia findById(Long idIncidencia);
+    Incidencia findByIdIncidencia(Long idIncidencia);
 }

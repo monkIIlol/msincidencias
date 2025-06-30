@@ -23,17 +23,17 @@ public class IncidenciaService {
     }
 
     public Incidencia findById(Long idIncidencia) {
-        return incidenciaRepository.findById(idIncidencia);
+        return incidenciaRepository.findByIdIncidencia(idIncidencia);
     }
 
     public Incidencia deleteById(Long idIncidencia) {
-        Incidencia resultado = incidenciaRepository.findById(idIncidencia);
+        Incidencia resultado = incidenciaRepository.findByIdIncidencia(idIncidencia);
         resultado.setActivo(false);
         return incidenciaRepository.save(resultado);
     }
 
     public boolean update(Long idIncidencia, Incidencia incidencia) {
-        Incidencia inc = incidenciaRepository.findById(idIncidencia);
+        Incidencia inc = incidenciaRepository.findByIdIncidencia(idIncidencia);
         if(inc != null) {
             inc.setIdUsuarioReporte(incidencia.getIdUsuarioReporte());
             inc.setIdOperadorAsignado(incidencia.getIdOperadorAsignado());
