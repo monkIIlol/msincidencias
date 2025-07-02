@@ -8,6 +8,7 @@ import org.springframework.http.HttpStatusCode;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.server.ResponseStatusException;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -19,7 +20,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.PutMapping;
 
-
+import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.*;
+import org.springframework.hateoas.EntityModel;
 
 
 @RestController
@@ -39,14 +41,17 @@ public class IncidenciaController {
     }
 
     @GetMapping("/{idIncidencia}")
-    public ResponseEntity<Incidencia> readIncidencia(@PathVariable Long idIncidencia) {
-        Incidencia buscar = incidenciaService.findById(idIncidencia);
-        if(buscar != null) {
-            return new ResponseEntity<>(buscar, HttpStatus.OK);
-        }else{
-            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-        }
+public EntityModel<Incidencia> readIncidencia(@PathVariable Long idIncidencia) {
+    Incidencia inc = incidenciaService.findById(idIncidencia);
+    if (inc == null) {
+        throw new ResponseStatusException(HttpStatus.NOT_FOUND);
     }
+    return EntityModel.of(
+        inc,
+        linkTo(methodOn(IncidenciaController.class).readIncidencia(idIncidencia)).withSelfRel(),
+        linkTo(methodOn(IncidenciaController.class).getAll()).withRel("all-incidencias")
+    );
+}
 
     @GetMapping("/estado/{idIncidencia}")
     public ResponseEntity<?> estado(@PathVariable Long idIncidencia) {
