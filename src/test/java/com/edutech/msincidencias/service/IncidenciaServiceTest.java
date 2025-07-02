@@ -71,18 +71,18 @@ public class IncidenciaServiceTest {
     @Test
     void testEncontrarIncidenciaPorId() {
         Incidencia incidenciaEncontrar = new Incidencia(1L, 19, 5, "", "", fechaIncidencia, "", "", true);
-        when(incidenciaRepository.findById(incidenciaEncontrar.getIdIncidencia())).thenReturn(incidenciaEncontrar);
+        when(incidenciaRepository.findByIdIncidencia(incidenciaEncontrar.getIdIncidencia())).thenReturn(incidenciaEncontrar);
 
         Incidencia resultado = incidenciaService.findById(incidenciaEncontrar.getIdIncidencia());
         assertThat(resultado).isEqualTo(incidenciaEncontrar);
 
-        verify(incidenciaRepository).findById(incidenciaEncontrar.getIdIncidencia());
+        verify(incidenciaRepository).findByIdIncidencia(incidenciaEncontrar.getIdIncidencia());
     }
 
     @Test
     void testEliminarIncidencia() {
         Incidencia incidencia = new Incidencia(9L, 19, 5, "", "",  fechaIncidencia, "", "", true);        
-        when(incidenciaRepository.findById(incidencia.getIdIncidencia())).thenReturn(incidencia);
+        when(incidenciaRepository.findByIdIncidencia(incidencia.getIdIncidencia())).thenReturn(incidencia);
         when(incidenciaRepository.save(incidencia)).thenReturn(incidencia);
 
         Incidencia resultado = incidenciaService.deleteById(incidencia.getIdIncidencia());
@@ -94,7 +94,7 @@ public class IncidenciaServiceTest {
     void testActualizarIncidencia() {
         Incidencia incidenciaExistente = new Incidencia(5L, 19, 5, "", "",  fechaIncidencia, "", "", true);
         Incidencia incidenciaNueva = new Incidencia(5L, 9, 18, "", "", fechaIncidencia, "", "", true);
-        when(incidenciaRepository.findById(incidenciaExistente.getIdIncidencia())).thenReturn(incidenciaNueva);
+        when(incidenciaRepository.findByIdIncidencia(incidenciaExistente.getIdIncidencia())).thenReturn(incidenciaNueva);
 
         boolean resultado = incidenciaService.update(incidenciaNueva.getIdIncidencia(), incidenciaNueva);
         assertThat(resultado).isTrue();
