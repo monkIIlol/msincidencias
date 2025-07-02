@@ -15,6 +15,5 @@ public interface IncidenciaRepository extends JpaRepository<Incidencia, Long>{
     @SuppressWarnings("unchecked")
     Incidencia save(Incidencia incidencia);
 
-    
-    Incidencia findByIdIncidencia(Long idIncidencia);
+    Incidencia findById(Long idIncidencia);
 }
